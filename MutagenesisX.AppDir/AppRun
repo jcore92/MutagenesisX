@@ -1,0 +1,14 @@
+#!/bin/bash
+
+$APPDIR/mutagenesisx.sh
+
+# GUI/TUI Switcher
+#if [ -t 0 ]; then
+    # TERMINAL
+    #x-terminal-emulator -e "bash -c '$APPDIR/mutagenesisx.sh; exec bash'"
+    #"$APPDIR/mutagenesisx.sh" "$@"
+#    x-terminal-emulator -e bash -c "'$APPDIR/mutagenesisx.sh'" #&> /dev/null &
+#else
+    # GUI
+#    $APPDIR/mutagenesisx.sh
+#fi
