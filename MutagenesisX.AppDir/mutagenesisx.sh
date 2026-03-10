@@ -32,7 +32,69 @@ mutagenesisx-shell () {
     command -v $cmd &>/dev/null && echo $cmd && break
     done)"
 
-    pkgmngr_install="apt install"
+    if [ "$package_manager" == "apt" ]; then
+    pkgmngr_install="sudo $package_manager install"
+    pkgmngr_refresh="sudo $package_manager update"
+    fi
+
+    if [ "$package_manager" == "dnf" ]; then
+    pkgmngr_install="sudo $package_manager install"
+    pkgmngr_refresh="sudo $package_manager makecache"
+    fi
+
+    if [ "$package_manager" == "yum" ]; then
+    pkgmngr_install="sudo $package_manager install"
+    pkgmngr_refresh="sudo $package_manager check-update"
+    fi
+
+    if [ "$package_manager" == "pacman" ]; then
+    pkgmngr_install="sudo pacman -Syu"
+    pkgmngr_refresh="sleep 1"
+    fi
+
+    if [ "$package_manager" == "zypper" ]; then
+    pkgmngr_install="sudo $package_manager install"
+    pkgmngr_refresh="sudo $package_manager refresh"
+    fi
+
+    # DEFAULT GUI WINDOW SIZES THEN OVERRIDES BASED ON DE:
+
+    default_eula_gui_dimensions="--width=550 --height=550"
+    default_mainmenu_gui_dimensions="--width=450 --height=550"
+    default_loading_gui_dimensions="--width=300 --height=200"
+
+
+    if [ "$XDG_CURRENT_DESKTOP" == "XFCE" ]; then
+
+    default_eula_gui_dimensions="--width=450 --height=550"
+    default_mainmenu_gui_dimensions="--width=450 --height=550"
+    default_loading_gui_dimensions="--width=300 --height=200"
+
+    fi
+
+    if [ "$XDG_CURRENT_DESKTOP" == "COSMIC" ]; then
+
+    default_eula_gui_dimensions="--width=650 --height=650"
+    default_mainmenu_gui_dimensions="--width=550 --height=650"
+    default_loading_gui_dimensions="--width=300 --height=200"
+
+    fi
+
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]; then
+
+    default_eula_gui_dimensions="--width=500 --height=500"
+    default_mainmenu_gui_dimensions="--width=400 --height=500"
+    default_loading_gui_dimensions="--width=300 --height=200"
+
+    fi
+
+    if [[ "$XDG_CURRENT_DESKTOP" == *GNOME* ]]; then
+
+    default_eula_gui_dimensions="--width=550 --height=550"
+    default_mainmenu_gui_dimensions="--width=400 --height=550"
+    default_loading_gui_dimensions="--width=300 --height=200"
+
+    fi
 
     # =============================================================================
     # SECTION: Terminal Interface
@@ -280,34 +342,15 @@ mutagenesisx-shell () {
 
     if [ "$gui_flag" = "1" ]; then
 
-    echo "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⣿⠏⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⣿⣿⡟⣠⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣯⠀⠀⠀⠀⠄⠉⠉⠉⠛⠻⢿⠋⣿⣿⣿⣿⣿⣿⢃⠀⣿⡿⢱⣿⣸⣿⣿⣿⣿⣿⡏⣿⣿⠛⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣧⡀⠀⠂⣾⣿⣿⣿⣶⣶⡆⣠⢸⣻⠿⠿⣿⡟⢸⠀⣿⢃⣾⣿⡏⣿⣿⣿⣿⣿⠀⢻⡏⡄⢡⡜⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⠶⡄⠘⢿⣿⣿⣿⣿⢃⣿⢸⣿⡟⢳⣶⢁⣟⠀⢇⣾⣿⣿⡇⢻⣿⣿⠀⡟⢀⢸⢱⣧⣾⣿⡘⢛⣛⣛⣛⣛⣛⣻⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣶⣶⣶⣦⣐⢶⣶⣶⣾⣿⡏⡟⢸⡄⠇⣼⣿⠀⣰⣽⣿⡻⢷⢸⣿⡇⣤⠀⣿⠀⣾⣿⣿⣿⣿⣷⣽⡻⢿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⡇⢠⣿⣿⣴⣿⣿⣷⣿⣿⣿⣿⣷⡄⣟⢀⢿⣾⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣦⠙⠻⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠃⣼⣿⣶⣭⣙⡛⠿⠿⢿⣿⣿⣿⣿⣿⣷⠀⠈⠻⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⢠⣿⣿⣿⣿⣿⣿⣷⣶⣤⣄⣈⡉⠉⠉⠀⠀⠀⠀⠈⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣤⣴⣾⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+    echo "$app_name $app_ver_major.$app_ver_minor.$app_ver_build $app_ver_stage
 
 Presented By:
 https://jcorestudios.com/
 https://github.com/jcore92
 
-$app_name $app_ver_major.$app_ver_minor.$app_ver_build $app_ver_stage
-
 Infused with MutagenesisX, GhostAPT, and Command Center's DNA. (Various older predecessor's of MutagenesisX.)
 
-jcore92 - Lead Programmer/MutagenesisX Author" | zenity --text-info --title="About $app_name" --width=580 --height=600 #--ok-label="" --cancel-label="" &
+jcore92 - Lead Programmer/MutagenesisX Author" | zenity --text-info --title="About $app_name" $default_mainmenu_gui_dimensions #--ok-label="" --cancel-label="" &
 
     fi
 
@@ -363,7 +406,7 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
 
     if [ "$gui_flag" == "1" ]; then
 
-        if zenity --text-info --title="$app_name: EULA" --width=580 --height=600 --filename="$APPDIR/LICENSE" --ok-label="I Agree"; then
+        if zenity --text-info --title="$app_name: EULA" $default_eula_gui_dimensions --filename="$APPDIR/LICENSE" --ok-label="I Agree"; then
             # User clicked "I Agree"
             text_delay
         else
@@ -394,12 +437,15 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
         if [ "$XDG_SESSION_TYPE" = "tty" ]; then
 
             text_delay ; echo " ✕ TTY is not supported. Please use a Desktop Environment to open $app_name." | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --width=580 --height=600
+                zenity --text-info $default_mainmenu_gui_dimensions
             else
                 cat
-                entertocontinue
+                #entertocontinue
             fi
 
+        if [ "$tui_flag" = "1" ]; then
+            entertocontinue
+        fi
         exit
         fi
 
@@ -407,12 +453,15 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
         if [ -n "$WSL_DISTRO_NAME" ] || [ -n "$IS_WSL" ]; then
 
             text_delay ; echo " ✕ WSL is not supported." | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --width=580 --height=600
+                zenity --text-info $default_mainmenu_gui_dimensions
             else
                 cat
-                entertocontinue
+                #entertocontinue
             fi
 
+        if [ "$tui_flag" = "1" ]; then
+            entertocontinue
+        fi
         exit
         fi
 
@@ -467,7 +516,7 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
             fi
 
             text_delay ; echo " ✕ Neither Ubuntu nor Debian base found." | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --width=500 --height=600 --title="$app_name: $probe_name Report" --cancel-label=""
+                zenity --text-info $default_mainmenu_gui_dimensions --title="$app_name: $probe_name Report" --cancel-label=""
             else
                 cat | print_red
             fi
@@ -490,7 +539,7 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
             fi
 
             text_delay ; echo " ✕ Unsupported package manager '$package_manager'. APT is currently only supported." | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --width=500 --height=600 --title="$app_name: $probe_name Report" --cancel-label=""
+                zenity --text-info $default_mainmenu_gui_dimensions --title="$app_name: $probe_name Report" --cancel-label=""
                 exit
             else
                 cat | print_red
@@ -570,12 +619,12 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
 Attempting to install package(s):
 '${missing[*]}'
 " | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --timeout=3 --width=500 --height=600 --title="$app_name: $probe_name Notification" --ok-label="" --cancel-label=""
-                x-terminal-emulator -e bash -c "printf \" 🔐 \" ; sudo apt update ; sudo $pkgmngr_install ${missing[*]}; echo \"\"; read -p \"Press enter to continue\";" # exec bash
+                zenity --text-info --timeout=3 $default_mainmenu_gui_dimensions --title="$app_name: $probe_name Notification" --ok-label="" --cancel-label=""
+                x-terminal-emulator -e bash -c "printf \" 🔐 \" ; $pkgmngr_refresh ; $pkgmngr_install ${missing[*]}; echo \"\"; read -p \"Press enter to continue\";" # exec bash
                 exit
             else
                 cat
-                printf " 🔐 " ; sudo apt update ; sudo $pkgmngr_install ${missing[*]}
+                printf " 🔐 " ; $pkgmngr_refresh ; $pkgmngr_install ${missing[*]}
                 #echo "Please install missing packages using this command, then restart $app_name:"
                 #echo "sudo $pkgmngr_install ${missing[*]}"
                 #divider
@@ -611,8 +660,8 @@ Attempting to install package(s):
             text_delay ; echo "
 Please install missing packages using this $probe_name tool or by using the command below (in a terminal), then restart $app_name:
 
-sudo $pkgmngr_install ${missing[*]}" | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --width=500 --height=600 --title="$app_name: $probe_name Report" --cancel-label=""
+$pkgmngr_install ${missing[*]}" | if [ "$gui_flag" = "1" ]; then
+                zenity --text-info $default_mainmenu_gui_dimensions --title="$app_name: $probe_name Report" --cancel-label=""
                 exit
             else
                 cat | print_red
@@ -625,12 +674,6 @@ sudo $pkgmngr_install ${missing[*]}" | if [ "$gui_flag" = "1" ]; then
 
         exit
         fi
-
-        # At the end of the script
-        #if [ "$gui_flag" = "1" ]; then
-        #    printf '%s\n' "${xprob_messages[@]}" | zenity --text-info --title="$app_name: $probe_name report" --width=800 --height=600 --ok-label="Close"
-        #    exit
-        #fi
 
     }
 
@@ -693,8 +736,7 @@ Select an action to run:" | center
             # Show cursor menu
             local selection
             if [ "$gui_flag" = "1" ]; then
-                #echo "${menu[@]}" | zenity --text-info --width=600 --height=800 --title="$app_name: $mainmenuname" --cancel-label=""
-                selection=$(zenity --list --column="Options" "${script_file_names[@]}" --width=500 --height=600 --title="$app_name: $selected" --ok-label="" --cancel-label="")
+                selection=$(zenity --list --column="Options" "${script_file_names[@]}" $default_mainmenu_gui_dimensions --title="$app_name: $selected" --ok-label="" --cancel-label="")
                 exit_code=$?
             else
                 #cursor_menu " " selected "${menu[@]}"
@@ -792,8 +834,8 @@ Error: Could not find the full path for $selection.
             chmod +x "$full_path" >/dev/null 2>&1
             if [ "$gui_flag" = "1" ]; then
                 #zenity --warning --timeout=1 --text="Running $selection..."
-                exec 3> >(zenity --progress --pulsate --auto-close --text="running $selection..." --title="$app_name: Action" --width=400 --height=200)
-                echo "# running $selection..." >&3
+                exec 3> >(zenity --progress --pulsate --auto-close --text="Running $selection..." --title="$app_name: Action" $default_loading_gui_dimensions)
+                echo "# Running $selection..." >&3
                 sleep 1.7
                 echo "100" >&3
                 exec 3>&-  # Close fd
@@ -806,14 +848,15 @@ $full_path" | center
                 echo ""
             fi
 
-            export -f center
-            export -f print_red
-            export -f divider
-            export -f cursor_menu
-            export -f entertocontinue
-            export -f text_delay
+            #export -f center
+            #export -f print_red
+            #export -f divider
+            #export -f cursor_menu
+            #export -f entertocontinue
+            #export -f text_delay
 
             export pkgmngr_install
+            export pkgmngr_refresh
             export app_name
             export app_temp_loc
             export gui_flag
@@ -875,8 +918,7 @@ Select a menu option:" | center
             # Use cursor menu for selection
             local selected
             if [ "$gui_flag" = "1" ]; then
-                #echo "${menu[@]}" | zenity --text-info --width=600 --height=800 --title="$app_name: $mainmenuname" --cancel-label=""
-                selected=$(zenity --list --column="Options" "${menu[@]}" --width=500 --height=600 --title="$app_name: $mainmenuname" --ok-label="" --cancel-label="")
+                selected=$(zenity --list --column="Options" "${menu[@]}" $default_mainmenu_gui_dimensions --title="$app_name: $mainmenuname" --ok-label="" --cancel-label="")
                 exit_code=$?
                 if [ "$exit_code" == "1" ]; then
                 loop="0"
@@ -948,12 +990,12 @@ mutagenesisx_banner
 if [ "$gui_flag" = "1" ]; then
     #( $probe_name ) | zenity --progress --pulsate --auto-close --text="Running $probe_name..." --title="Processing"
     # Send progress updates to Zenity on a separate file descriptor
-    exec 3> >(zenity --progress --pulsate --auto-close --text="Running $probe_name..." --title="$app_name: $probe_name Analysis" --width=400 --height=200 --no-cancel)
+    exec 3> >(zenity --progress --pulsate --auto-close --text="Running $probe_name..." --title="$app_name: $probe_name Analysis" $default_loading_gui_dimensions --no-cancel)
     echo "# scanning system..." >&3
     xprobe
     echo "100" >&3
     exec 3>&-  # Close fd
-    printf '%s\n' "${xprob_messages[@]}" | zenity --text-info --title="$app_name: $probe_name Report" --timeout=3 --width=500 --height=600 #--ok-label="" --cancel-label=""
+    printf '%s\n' "${xprob_messages[@]}" | zenity --text-info --title="$app_name: $probe_name Report" --timeout=3 $default_mainmenu_gui_dimensions #--ok-label="" --cancel-label=""
     #exit
 else
     xprobe
