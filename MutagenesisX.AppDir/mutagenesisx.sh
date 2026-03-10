@@ -280,34 +280,15 @@ mutagenesisx-shell () {
 
     if [ "$gui_flag" = "1" ]; then
 
-    echo "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⣿⠏⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⣿⣿⡟⣠⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣯⠀⠀⠀⠀⠄⠉⠉⠉⠛⠻⢿⠋⣿⣿⣿⣿⣿⣿⢃⠀⣿⡿⢱⣿⣸⣿⣿⣿⣿⣿⡏⣿⣿⠛⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣧⡀⠀⠂⣾⣿⣿⣿⣶⣶⡆⣠⢸⣻⠿⠿⣿⡟⢸⠀⣿⢃⣾⣿⡏⣿⣿⣿⣿⣿⠀⢻⡏⡄⢡⡜⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⠶⡄⠘⢿⣿⣿⣿⣿⢃⣿⢸⣿⡟⢳⣶⢁⣟⠀⢇⣾⣿⣿⡇⢻⣿⣿⠀⡟⢀⢸⢱⣧⣾⣿⡘⢛⣛⣛⣛⣛⣛⣻⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣶⣶⣶⣦⣐⢶⣶⣶⣾⣿⡏⡟⢸⡄⠇⣼⣿⠀⣰⣽⣿⡻⢷⢸⣿⡇⣤⠀⣿⠀⣾⣿⣿⣿⣿⣷⣽⡻⢿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⡇⢠⣿⣿⣴⣿⣿⣷⣿⣿⣿⣿⣷⡄⣟⢀⢿⣾⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣦⠙⠻⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠃⣼⣿⣶⣭⣙⡛⠿⠿⢿⣿⣿⣿⣿⣿⣷⠀⠈⠻⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⢠⣿⣿⣿⣿⣿⣿⣷⣶⣤⣄⣈⡉⠉⠉⠀⠀⠀⠀⠈⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣤⣴⣾⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+    echo "$app_name $app_ver_major.$app_ver_minor.$app_ver_build $app_ver_stage
 
 Presented By:
 https://jcorestudios.com/
 https://github.com/jcore92
 
-$app_name $app_ver_major.$app_ver_minor.$app_ver_build $app_ver_stage
-
 Infused with MutagenesisX, GhostAPT, and Command Center's DNA. (Various older predecessor's of MutagenesisX.)
 
-jcore92 - Lead Programmer/MutagenesisX Author" | zenity --text-info --title="About $app_name" --width=580 --height=600 #--ok-label="" --cancel-label="" &
+jcore92 - Lead Programmer/MutagenesisX Author" | zenity --text-info --title="About $app_name" --width=450 --height=550 #--ok-label="" --cancel-label="" &
 
     fi
 
@@ -363,7 +344,7 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
 
     if [ "$gui_flag" == "1" ]; then
 
-        if zenity --text-info --title="$app_name: EULA" --width=580 --height=600 --filename="$APPDIR/LICENSE" --ok-label="I Agree"; then
+        if zenity --text-info --title="$app_name: EULA" --width=550 --height=550 --filename="$APPDIR/LICENSE" --ok-label="I Agree"; then
             # User clicked "I Agree"
             text_delay
         else
@@ -394,7 +375,7 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
         if [ "$XDG_SESSION_TYPE" = "tty" ]; then
 
             text_delay ; echo " ✕ TTY is not supported. Please use a Desktop Environment to open $app_name." | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --width=580 --height=600
+                zenity --text-info --width=450 --height=550
             else
                 cat
                 entertocontinue
@@ -407,7 +388,7 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
         if [ -n "$WSL_DISTRO_NAME" ] || [ -n "$IS_WSL" ]; then
 
             text_delay ; echo " ✕ WSL is not supported." | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --width=580 --height=600
+                zenity --text-info --width=450 --height=550
             else
                 cat
                 entertocontinue
@@ -467,7 +448,7 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
             fi
 
             text_delay ; echo " ✕ Neither Ubuntu nor Debian base found." | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --width=500 --height=600 --title="$app_name: $probe_name Report" --cancel-label=""
+                zenity --text-info --width=450 --height=550 --title="$app_name: $probe_name Report" --cancel-label=""
             else
                 cat | print_red
             fi
@@ -490,7 +471,7 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
             fi
 
             text_delay ; echo " ✕ Unsupported package manager '$package_manager'. APT is currently only supported." | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --width=500 --height=600 --title="$app_name: $probe_name Report" --cancel-label=""
+                zenity --text-info --width=450 --height=550 --title="$app_name: $probe_name Report" --cancel-label=""
                 exit
             else
                 cat | print_red
@@ -570,7 +551,7 @@ jcore92 - Lead Programmer/MutagenesisX Author" | center
 Attempting to install package(s):
 '${missing[*]}'
 " | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --timeout=3 --width=500 --height=600 --title="$app_name: $probe_name Notification" --ok-label="" --cancel-label=""
+                zenity --text-info --timeout=3 --width=450 --height=550 --title="$app_name: $probe_name Notification" --ok-label="" --cancel-label=""
                 x-terminal-emulator -e bash -c "printf \" 🔐 \" ; sudo apt update ; sudo $pkgmngr_install ${missing[*]}; echo \"\"; read -p \"Press enter to continue\";" # exec bash
                 exit
             else
@@ -612,7 +593,7 @@ Attempting to install package(s):
 Please install missing packages using this $probe_name tool or by using the command below (in a terminal), then restart $app_name:
 
 sudo $pkgmngr_install ${missing[*]}" | if [ "$gui_flag" = "1" ]; then
-                zenity --text-info --width=500 --height=600 --title="$app_name: $probe_name Report" --cancel-label=""
+                zenity --text-info --width=450 --height=550 --title="$app_name: $probe_name Report" --cancel-label=""
                 exit
             else
                 cat | print_red
@@ -694,7 +675,7 @@ Select an action to run:" | center
             local selection
             if [ "$gui_flag" = "1" ]; then
                 #echo "${menu[@]}" | zenity --text-info --width=600 --height=800 --title="$app_name: $mainmenuname" --cancel-label=""
-                selection=$(zenity --list --column="Options" "${script_file_names[@]}" --width=500 --height=600 --title="$app_name: $selected" --ok-label="" --cancel-label="")
+                selection=$(zenity --list --column="Options" "${script_file_names[@]}" --width=450 --height=550 --title="$app_name: $selected" --ok-label="" --cancel-label="")
                 exit_code=$?
             else
                 #cursor_menu " " selected "${menu[@]}"
@@ -792,7 +773,7 @@ Error: Could not find the full path for $selection.
             chmod +x "$full_path" >/dev/null 2>&1
             if [ "$gui_flag" = "1" ]; then
                 #zenity --warning --timeout=1 --text="Running $selection..."
-                exec 3> >(zenity --progress --pulsate --auto-close --text="running $selection..." --title="$app_name: Action" --width=400 --height=200)
+                exec 3> >(zenity --progress --pulsate --auto-close --text="running $selection..." --title="$app_name: Action" --width=400) #--height=200
                 echo "# running $selection..." >&3
                 sleep 1.7
                 echo "100" >&3
@@ -876,7 +857,7 @@ Select a menu option:" | center
             local selected
             if [ "$gui_flag" = "1" ]; then
                 #echo "${menu[@]}" | zenity --text-info --width=600 --height=800 --title="$app_name: $mainmenuname" --cancel-label=""
-                selected=$(zenity --list --column="Options" "${menu[@]}" --width=500 --height=600 --title="$app_name: $mainmenuname" --ok-label="" --cancel-label="")
+                selected=$(zenity --list --column="Options" "${menu[@]}" --width=450 --height=550 --title="$app_name: $mainmenuname" --ok-label="" --cancel-label="")
                 exit_code=$?
                 if [ "$exit_code" == "1" ]; then
                 loop="0"
@@ -953,7 +934,7 @@ if [ "$gui_flag" = "1" ]; then
     xprobe
     echo "100" >&3
     exec 3>&-  # Close fd
-    printf '%s\n' "${xprob_messages[@]}" | zenity --text-info --title="$app_name: $probe_name Report" --timeout=3 --width=500 --height=600 #--ok-label="" --cancel-label=""
+    printf '%s\n' "${xprob_messages[@]}" | zenity --text-info --title="$app_name: $probe_name Report" --timeout=3 --width=450 --height=550 #--ok-label="" --cancel-label=""
     #exit
 else
     xprobe
